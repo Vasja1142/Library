@@ -9,6 +9,10 @@ int[] GetArray(int size, int minValue, int maxValue)
     return result;
 }
 
+int[] array = GetArray(5, 100, 999);
+Console.WriteLine($"Массив: [{String.Join(", ", array)}]");
+
+
 // Создает массив случайных чисел с заданными пользователем значениями 
 int[] FillArray()
 {
@@ -30,6 +34,7 @@ int[] FillArray()
 
 }
 
+
 // Заполняет матрицу случайными числами
 void FillMatrix(int[,] matr)
 {
@@ -41,6 +46,7 @@ void FillMatrix(int[,] matr)
         }
     }
 }
+
 
 //Создает числовую матрицу случайных чисел с заданными пользователем значениями 
 int[,] NewMatrix()
@@ -68,6 +74,7 @@ int[,] NewMatrix()
     }
     return matr;
 }
+
 
 // Выводит в консоль матрицу
 void PrintArray(int[,] matr)
