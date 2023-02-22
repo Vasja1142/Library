@@ -34,23 +34,14 @@ int[] FillArray()
 
 }
 
+FillArray();
 
-// Заполняет матрицу случайными числами
-void FillMatrix(int[,] matr)
+
+// Ввод характеристики матрицы через консоль
+int[] MatrixDataInput()
 {
-    for (int i = 0; i < matr.GetLength(0); i++)
-    {
-        for (int j = 0; j < matr.GetLength(1); j++)
-        {
-            matr[i, j] = new Random().Next(1, 10);
-        }
-    }
-}
+    Console.Clear();
 
-
-//Создает числовую матрицу случайных чисел с заданными пользователем значениями 
-int[,] NewMatrix()
-{
     Console.Write("Введите количество строк числовой матрицы: ");
     int rows = int.Parse(Console.ReadLine()!);
 
@@ -62,50 +53,63 @@ int[,] NewMatrix()
 
     Console.Write("Введите максимальное значение элемента матрицы: ");
     int maxValue = int.Parse(Console.ReadLine()!);
+    
+    int[] data = {rows, colums, minValue, maxValue};
 
-    int[,] matr = new int[rows, colums];
+    return data;
+}
 
-    for (int i = 0; i < matr.GetLength(0); i++)
+
+//Создает числовую матрицу 
+int[,] NewMatrix(int rows, int colums, int minValue, int maxValue)
+{
+    int[,] matrix = new int[rows, colums];
+
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < matr.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            matr[i, j] = new Random().Next(minValue, maxValue);
+            matrix[i, j] = new Random().Next(minValue, maxValue + 1);
         }
     }
-    return matr;
+    return matrix;
 }
 
 
 // Выводит в консоль матрицу
-void PrintArray(int[,] matr)
+void PrintMatrix(int[,] matrix)
 {
-    int max = 1;
-    int l = 1;
-    int k = 1;
+    int count = 1;
     int length = 1;
-    for (int i = 0; i < matr.GetLength(0); i++)
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < matr.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            if (max < Math.Abs(matr[i, j])) max = Math.Abs(matr[i, j]);
+            if (count <= Math.Abs(matrix[i, j])) 
+            {
+            count *= 10;
+            length++;
+            }
         }
     }
 
-    while (l <= max)
+    Console.Clear();
+    
+    int leftPosition;
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        l *= 10;
-        length++;
-    }
-
-    for (int i = 0; i < matr.GetLength(0); i++)
-    {
-        for (int j = 0; j < matr.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            k = j * (length + 1);
-            if (matr[i, j] >= 0) k++;
-            Console.SetCursorPosition(k, i + 5);
-            Console.Write($"{matr[i, j]} ");
+            leftPosition = j * (length + 1);
+            if (matrix[i, j] >= 0) leftPosition++;
+            Console.SetCursorPosition(leftPosition, i);
+            Console.Write($"{matrix[i, j]} ");
         }
     }
 }
 
+
+//Написание программы вывода матрицы с характеристиками введенными с консоли
+int[] dataArray = MatrixDataInput();
+int[,] matrix = NewMatrix(dataArray[0], dataArray[1], dataArray[2], dataArray[3]);
+PrintMatrix(matrix);
