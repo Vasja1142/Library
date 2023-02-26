@@ -77,7 +77,7 @@ int[,] NewMatrix(int rows, int colums, int minValue, int maxValue)
 
 
 // Выводит в консоль матрицу
-void PrintMatrix(int[,] matrix)
+void PrintMatrix(int[,] matrix, int upPosition)
 {
     int count = 1;
     int length = 1;
@@ -93,8 +93,6 @@ void PrintMatrix(int[,] matrix)
         }
     }
 
-    Console.Clear();
-    
     int leftPosition;
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -102,7 +100,7 @@ void PrintMatrix(int[,] matrix)
         {
             leftPosition = j * (length + 1);
             if (matrix[i, j] >= 0) leftPosition++;
-            Console.SetCursorPosition(leftPosition, i);
+            Console.SetCursorPosition(leftPosition, i + upPosition);
             Console.Write($"{matrix[i, j]} ");
         }
     }
@@ -112,4 +110,5 @@ void PrintMatrix(int[,] matrix)
 //Написание программы вывода матрицы с характеристиками введенными с консоли
 int[] dataArray = MatrixDataInput();
 int[,] matrix = NewMatrix(dataArray[0], dataArray[1], dataArray[2], dataArray[3]);
-PrintMatrix(matrix);
+Console.Clear();
+PrintMatrix(matrix, 0);
